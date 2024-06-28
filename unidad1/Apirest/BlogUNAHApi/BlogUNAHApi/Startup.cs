@@ -1,5 +1,7 @@
-﻿using BlogUNAHApi.Services;
+﻿using BlogUNAHApi.Database;
+using BlogUNAHApi.Services;
 using BlogUNAHApi.Services.Interdaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogUNAHApi
 {
@@ -17,6 +19,11 @@ namespace BlogUNAHApi
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            // Add Dbcontext
+            services.AddDbContext<BlogUNAHContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             // Add custom services
             services.AddTransient<ICategoriesServices, CategoriesService>();
         }

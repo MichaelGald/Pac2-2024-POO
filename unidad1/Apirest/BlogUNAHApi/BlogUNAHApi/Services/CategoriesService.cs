@@ -38,7 +38,7 @@ namespace BlogUNAHApi.Services
 
             categoriesDtos.Add(categoryDto);
 
-            var categories = categoriesDtos.Select(x => new Category
+            var categories = categoriesDtos.Select(x => new CategoryEntity
             {
                 Id= x.Id,
                 Name = x.Name,
@@ -68,7 +68,7 @@ namespace BlogUNAHApi.Services
                 }
             }
 
-            var categories = categoriesDto.Select(x => new Category
+            var categories = categoriesDto.Select(x => new CategoryEntity
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -87,7 +87,7 @@ namespace BlogUNAHApi.Services
                 return false;
             }
             categoriesDto.Remove(categoriesToDelete);
-            var categories = categoriesDto.Select(x => new Category
+            var categories = categoriesDto.Select(x => new CategoryEntity
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -105,7 +105,7 @@ namespace BlogUNAHApi.Services
                 return new List<CategoryDto>();
             }
            var json = await File.ReadAllTextAsync(_JSON_FILE);
-           var categories = JsonConvert.DeserializeObject<List<Category>>(json);
+           var categories = JsonConvert.DeserializeObject<List<CategoryEntity>>(json);
             var dtos = categories.Select(x => new CategoryDto
             {
                 Id = x.Id,
@@ -116,7 +116,7 @@ namespace BlogUNAHApi.Services
             return dtos; 
         }
 
-        private async Task WriteCategoriesToFileAsync(List<Category> categories)
+        private async Task WriteCategoriesToFileAsync(List<CategoryEntity> categories)
         {
             var json = JsonConvert.SerializeObject(categories, Formatting.Indented);
          
